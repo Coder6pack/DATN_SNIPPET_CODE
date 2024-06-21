@@ -1,12 +1,12 @@
-import { Button } from './components/ui/button'
+import { ThemeProvider } from './components/theme-provider'
+import useRootElement from './useRootElement'
 
 function App() {
+  const routesElement = useRootElement()
   return (
-    <>
-      <Button className='bg-red-500' variant={'outline'}>
-        Click me
-      </Button>
-    </>
+    <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
+      {routesElement}
+    </ThemeProvider>
   )
 }
 
