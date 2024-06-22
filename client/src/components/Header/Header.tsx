@@ -4,6 +4,13 @@ import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { NavigationMenu, NavigationMenuList, NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { Link } from 'react-router-dom'
+import { MenuIcon } from 'lucide-react'
+import path from '@/constants/path'
+import { FaGithub } from 'react-icons/fa'
+import { ModeToggle } from '../mode-toggle'
+import { AiFillAppstore } from 'react-icons/ai'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import SearchInput from '../SearchInput'
 
 export default function Header() {
   return (
@@ -12,6 +19,7 @@ export default function Header() {
         <Sheet>
           <SheetTrigger asChild>
             <Button variant='outline' size='icon' className='lg:hidden'>
+              <MenuIcon className='h-6 w-6' />
               <span className='sr-only'>Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
@@ -39,6 +47,7 @@ export default function Header() {
           </SheetContent>
         </Sheet>
         <Link to='#' className='mr-6 hidden lg:flex'>
+          <AiFillAppstore className='w-8 h-8' />
           <span className='sr-only'>ShadCN</span>
         </Link>
         <NavigationMenu className='hidden lg:flex'>
@@ -86,8 +95,30 @@ export default function Header() {
           </NavigationMenuList>
         </NavigationMenu>
         <div className='ml-auto flex gap-2'>
-          <Button variant='outline'>Sign in</Button>
-          <Button>Sign Up</Button>
+          <SearchInput />
+          <div className='ml-auto flex gap-4 items-center'>
+            <Link to={path.gitHub}>
+              <FaGithub className='w-8 h-8' />
+            </Link>
+            <ModeToggle />
+          </div>
+          <Button variant='outline'>
+            <Link to={path.login}>Sign in</Link>
+          </Button>
+          <Button>
+            <Link to={path.register}>Sign Up</Link>
+          </Button>
+          <Popover>
+            <PopoverTrigger>Open</PopoverTrigger>
+            <PopoverContent className='w-44'>
+              <Link to={path.login}>
+                <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Profile</div>
+              </Link>
+              <Link to={path.login}>
+                <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Logout</div>
+              </Link>
+            </PopoverContent>
+          </Popover>
         </div>
       </header>
     </div>

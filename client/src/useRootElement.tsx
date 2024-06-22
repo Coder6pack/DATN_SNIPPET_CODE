@@ -3,13 +3,19 @@ import path from './constants/path'
 import RegisterLayout from './layouts/RegisterLayout'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Home from './pages/Home'
+import MainLayout from './layouts/MainLayout'
 
 export default function useRootElement() {
   const rootElements = useRoutes([
     {
-      path: '',
+      path: path.home,
       index: true,
-      element: ''
+      element: (
+        <MainLayout>
+          <Home />
+        </MainLayout>
+      )
     },
     {
       path: '',
