@@ -55,11 +55,13 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function update($model, $data)
+    public function update($id, $data)
     {
-        $model->update($data);
+        $user = $this->model->find($id);
 
-        return $model;
+        $user->update($data);
+        
+        return $user;
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Comment;
+namespace App\Repositories\Vote;
 
-use App\Models\Comment;
+use App\Models\Vote;
 use App\Repositories\BaseRepository;
-use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Vote\VoteRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CommentRepository extends BaseRepository implements CommentRepositoryInterface
+class VoteRepository extends BaseRepository implements VoteRepositoryInterface
 {
     const PER_PAGE = 10;
 
@@ -19,7 +19,7 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
     /**
      * {@inheritdoc}
      */
-    public function __construct(Comment $model)
+    public function __construct(Vote $model)
     {
         $this->model = $model;
         parent::__construct($model);
@@ -33,5 +33,12 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
     public function getTypeId($id)
     {
         return $this->model->where('id', '=', $id)->with('user', 'snippet')->first();
+    }
+
+    public function deleteVote($user_id, $snippet_id)
+    {
+        $votes = $this->model->where('user_id', $user_id)->where('snippet_id', $snippet_id)->first();
+
+        return $this->destroy($votes);
     }
 }

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('history_states', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->foreignId('users');
+            $table->string('id')->primary();
+            $table->foreignUlid('user_id')->foreignId('users');
             $table->dateTime('lastTime');
             $table->timestamps();
         });

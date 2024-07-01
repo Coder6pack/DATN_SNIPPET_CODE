@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
+        Schema::create('snippet_tags', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignUlid('snippet_id')->foreignId('snippets');
             $table->string('name');
             $table->timestamps();
         });
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('post_tags');
     }
 };

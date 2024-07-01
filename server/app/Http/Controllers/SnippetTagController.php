@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Role;
-use App\Repositories\Role\RoleRepositoryInterface;
+use App\Repositories\SnippetTag\SnippetTagRepositoryInterface;
 
-class RoleController extends Controller
+class SnippetTagController extends Controller
 {
     public function __construct(
-        protected RoleRepositoryInterface $roleRepository,
+        protected SnippetTagRepositoryInterface $snippetTagRepository,
     ) {}
     public function index()
     {
-        $roles = $this->roleRepository->getForeign();
+        $snippetTags = $this->snippetTagRepository->getForeign();
         return response()->json([
-            'data' =>  $roles,
+            'data' =>  $snippetTags,
         ]);
     }
 
     public function detail($id)
     {
-        $roles = $this->roleRepository->getTypeId($id);
+        $snippetTags = $this->snippetTagRepository->getTypeId($id);
         return response()->json([
-            'data' =>  $roles,
+            'data' =>  $snippetTags,
         ]);
     }
 
@@ -31,13 +30,14 @@ class RoleController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required',
+                'snippet_id' => 'required',
+                'name' => 'required|string|max:255',
             ]);
 
-            $roles = $this->roleRepository->create($validatedData);
+            $snippetTag = $this->snippetTagRepository->create($validatedData);
 
             return response()->json([
-                'data' => $roles,
+                'data' => $snippetTag,
                 'message' => "Thêm mới thành công",
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -57,13 +57,14 @@ class RoleController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required',
+                'snippet_id' => 'required',
+                'name' => 'required|string|max:255',
             ]);
 
-            $roles = $this->roleRepository->update($id, $validatedData);
+            $snippetTags = $this->snippetTagRepository->update($id, $validatedData);
 
             return response()->json([
-                'data' => $roles,
+                'data' => $snippetTags,
                 'message' => "Chỉnh sửa thành công",
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -83,10 +84,10 @@ class RoleController extends Controller
     {
         try {
 
-            $roles = $this->roleRepository->deleteRole($request->id);
+            $votes = $this->snippetTagRepository->deleteSnippetTag($request -> snippet_id);
 
             return response()->json([
-                'data' => $roles,
+                'data' => $votes,
                 'message' => "Xóa thành công",
             ], 201);
 

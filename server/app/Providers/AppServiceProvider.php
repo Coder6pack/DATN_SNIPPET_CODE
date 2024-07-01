@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Snippet\SnippetRepository;
 use App\Repositories\Snippet\SnippetRepositoryInterface;
-use App\Repositories\Comment\CommentRepository;
-use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Vote\VoteRepository;
+use App\Repositories\Vote\VoteRepositoryInterface;
+use App\Repositories\Role\RoleRepository;
+use App\Repositories\Role\RoleRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
         $this->app->singleton(SnippetRepositoryInterface::class, SnippetRepository::class);
-        $this->app->singleton(CommentRepositoryInterface::class, CommentRepository::class);
+        $this->app->singleton(VoteRepositoryInterface::class, VoteRepository::class);
+        $this->app->singleton(RoleRepositoryInterface::class, RoleRepository::class);
     }
 
     /**
@@ -28,16 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Route::macro('isWith', function (...$parameters) {
-            foreach ($parameters as $parameter) {
-                if (url()->current() == (!is_array($parameter)
-                    ? route($parameter)
-                    : route($parameter[0], $parameter[1] ?? []))
-                ) {
-                    return true;
-                }
-            }
-            return false;
-        });
+        //
     }
 }

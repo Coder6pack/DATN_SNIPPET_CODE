@@ -34,4 +34,11 @@ class SnippetRepository extends BaseRepository implements SnippetRepositoryInter
     {
         return $this->model->where('id', '=', $id)->with('user', 'img')->first();
     }
+
+    public function deleteSnippet($user_id, $img_id)
+    {
+        $snippets = $this->model->where('user_id', $user_id)->where('img_id', $img_id)->first();
+
+        return $this->destroy($snippets);
+    }
 }

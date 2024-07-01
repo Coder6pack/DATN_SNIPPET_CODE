@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('paginations', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('pageName');
-            $table->foreignId('snippet_id')->foreignId('snippets');
+            $table->foreignUlid('snippet_id')->foreignId('snippets');
             $table->timestamps();
         });
     }

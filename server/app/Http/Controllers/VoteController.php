@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Role;
-use App\Repositories\Role\RoleRepositoryInterface;
+use App\Repositories\Vote\VoteRepositoryInterface;
 
-class RoleController extends Controller
+class VoteController extends Controller
 {
     public function __construct(
-        protected RoleRepositoryInterface $roleRepository,
+        protected VoteRepositoryInterface $voteRepository,
     ) {}
     public function index()
     {
-        $roles = $this->roleRepository->getForeign();
+        $votes = $this->voteRepository->getForeign();
         return response()->json([
-            'data' =>  $roles,
+            'data' =>  $votes,
         ]);
     }
 
     public function detail($id)
     {
-        $roles = $this->roleRepository->getTypeId($id);
+        $votes = $this->voteRepository->getTypeId($id);
         return response()->json([
-            'data' =>  $roles,
+            'data' =>  $votes,
         ]);
     }
 
@@ -31,13 +30,15 @@ class RoleController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required',
+                'snippet_id' => 'required',
+                'user_id' => 'required',
+                'vote_type' => 'required',
             ]);
 
-            $roles = $this->roleRepository->create($validatedData);
+            $user = $this->voteRepository->create($validatedData);
 
             return response()->json([
-                'data' => $roles,
+                'data' => $user,
                 'message' => "Thêm mới thành công",
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -53,40 +54,14 @@ class RoleController extends Controller
         }
     }
 
-    public function edit(Request $request, $id)
-    {
-        try {
-            $validatedData = $request->validate([
-                'name' => 'required',
-            ]);
-
-            $roles = $this->roleRepository->update($id, $validatedData);
-
-            return response()->json([
-                'data' => $roles,
-                'message' => "Chỉnh sửa thành công",
-            ], 201);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'message' => "Chỉnh sửa thất bại",
-                'errors' => $e->errors(),
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Chỉnh sửa thất bại",
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
     public function destroy(Request $request)
     {
         try {
 
-            $roles = $this->roleRepository->deleteRole($request->id);
+            $votes = $this->voteRepository->deleteVote($request -> user_id, $request -> snippet_id);
 
             return response()->json([
-                'data' => $roles,
+                'data' => $votes,
                 'message' => "Xóa thành công",
             ], 201);
 

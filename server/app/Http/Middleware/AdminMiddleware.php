@@ -15,13 +15,14 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user() && auth()->user()->role->name == 'admin') {
+        $user = auth()->user();
+
+        if ($user && $user->role->name === 'admin') {
             return $next($request);
         }
         return response()->json([
             'status' => false,
             'message' => 'Bạn không có quyền truy cập vào admin',
         ]);
-         
     }
 }

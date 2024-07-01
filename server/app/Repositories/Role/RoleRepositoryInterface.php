@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Snippet;
+namespace App\Repositories\Role;
 
 use App\Repositories\RepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-interface SnippetRepositoryInterface extends RepositoryInterface
+interface RoleRepositoryInterface extends RepositoryInterface
 {
     public function getForeign();
 
     public function getTypeId($id);
 
-    public function deleteSnippet($user_id, $img_id);
+    public function deleteRole($id);
 }

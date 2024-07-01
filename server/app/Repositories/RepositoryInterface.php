@@ -57,7 +57,7 @@ interface RepositoryInterface
      * @param  mixed  $data
      * @return $model
      */
-    public function update($model, $data);
+    public function update($id, $data);
 
     /**
      * Destroy a resource

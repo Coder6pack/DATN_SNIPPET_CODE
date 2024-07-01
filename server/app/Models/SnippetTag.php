@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class SnippetTag extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     protected $fillable = [
         'snippet_id',
-        'tag_id',
+        'name',
     ];
 
     /**
@@ -22,14 +23,5 @@ class SnippetTag extends Model
     public function snippet(): BelongsTo
     {
         return $this->belongsTo(Snippet::class);
-    }
-
-     /**
-     * 
-     * @return BelongsTo
-     */
-    public function tag(): BelongsTo
-    {
-        return $this->belongsTo(Tag::class);
     }
 }

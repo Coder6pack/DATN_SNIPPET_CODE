@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('snippet_tags', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('snippet_id')->foreignId('snippets');
-            $table->foreignId('tag_id')->foreignId('tags');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('google_id')->nullable();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_tags');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('google_id');
+        });
     }
 };
