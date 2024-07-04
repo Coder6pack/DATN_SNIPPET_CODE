@@ -1,3 +1,11 @@
+import SnippetItem from './SnippetItem'
+
 export default function SnippetList() {
-  return <div>SnippetList</div>
+  return (
+    <div>
+      <SnippetItem />
+      <SnippetItem />
+      <SnippetItem />
+    </div>
+  )
 }

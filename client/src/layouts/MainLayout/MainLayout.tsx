@@ -1,4 +1,5 @@
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable import/no-unresolved */
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 
 interface Props {
@@ -10,6 +11,7 @@ export default function MainLayout({ children }: Props) {
     <div>
       <Header />
       {children}
+      <Footer />
     </div>
   )
 }
