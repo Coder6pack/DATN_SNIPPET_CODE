@@ -10,6 +10,9 @@ import SnippetDetail from './pages/SnippetDetail'
 import UserLayout from './pages/User/Layouts/UserLayout'
 import Profile from './pages/User/Profile'
 import ManagerSnippet from './pages/User/ManagerSnippet'
+import Users from './pages/User/List/Users'
+import Snippets from './pages/User/List/Snippets'
+import Tags from './pages/User/List/Tags'
 
 function ProtectedRoutes() {
   const isAuthenticated = true
@@ -64,11 +67,7 @@ export default function useRootElement() {
         },
         {
           path: path.user,
-          element: (
-            <MainLayout>
-              <UserLayout />
-            </MainLayout>
-          ),
+          element: <UserLayout />,
           children: [
             {
               path: path.profile,
@@ -82,7 +81,21 @@ export default function useRootElement() {
         },
         {
           path: path.dashboard,
-          element: <UserLayout />
+          element: <UserLayout />,
+          children: [
+            {
+              path: path.dashboardUser,
+              element: <Users />
+            },
+            {
+              path: path.dashboardSnippet,
+              element: <Snippets />
+            },
+            {
+              path: path.dashboardTag,
+              element: <Tags />
+            }
+          ]
         }
       ]
     }

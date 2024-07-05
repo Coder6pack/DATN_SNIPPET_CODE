@@ -124,7 +124,7 @@ export default function Header() {
                 <Link to={path.managerSnippet}>
                   <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Manager</div>
                 </Link>
-                <Link to={path.dashboard}>
+                <Link to={path.dashboardUser}>
                   <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Dashboard</div>
                 </Link>
                 <Link to={path.login}>

@@ -9,6 +9,9 @@ const path = {
   profile: '/user/profile',
   managerSnippet: '/user/manager-snippet',
   dashboard: '/dashboard',
+  dashboardUser: '/dashboard/list-user',
+  dashboardSnippet: '/dashboard/list-snippet',
+  dashboardTag: '/dashboard/list-tag',
   gitHub: 'https://github.com/Coder6pack/DATN_SNIPPET_CODE'
 } as const
 
