@@ -1,111 +1,137 @@
 /* eslint-disable import/no-unresolved */
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Tabs, TabsContent } from '@/components/ui/tabs'
-// eslint-disable-next-line import/no-duplicates
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import DateSelect from '../components/DateSelect'
+// import Button from 'src/components/Button'
+// import { useMutation, useQuery } from '@tanstack/react-query'
+// import userApi from 'src/apis/user.api'
+// import { userSchema, UserSchema } from 'src/utils/rules'
+// import { Controller, useForm } from 'react-hook-form'
+// import { yupResolver } from '@hookform/resolvers/yup'
+// import InputNumber from 'src/components/InputNumber'
+// import { useContext, useEffect, useMemo, useState } from 'react'
+// import { toast } from 'react-toastify'
+// import { AppContext } from 'src/contexts/app.context'
+// import { setProfileToLS } from 'src/utils/auth'
+// import { getAvatarUrl, isAxiosUnprocessableEntityError } from 'src/utils/utils'
+// import { ErrorResponse } from 'src/types/ultils.type'
+// import InputFile from 'src/components/InputFile'
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import DateSelect from '@/components/DateSelect'
+import Input from '@/components/Input'
+import InputFile from '@/components/InputFile'
+import InputNumber from '@/components/InputNumber'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { File, ListFilter, MoreHorizontal, PlusCircle } from 'lucide-react'
+import { Controller, useForm } from 'react-hook-form'
+
 export default function Profile() {
+  const {
+    register,
+    control,
+    formState: { errors }
+    // handleSubmit,
+    // setValue,
+    // watch,
+    // setError
+  } = useForm({
+    defaultValues: {
+      name: '',
+      phone: '',
+      address: '',
+      date_of_birth: new Date(1990, 0, 1),
+      avatar: ''
+    }
+    // resolver: yupResolver(profileSchema)
+  })
   return (
-    <div>
-      <Tabs defaultValue='all'>
-        <div className='flex items-center'>
-          <div className='ml-auto flex items-center gap-2'>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant='outline' size='sm' className='h-7 gap-1'>
-                  <ListFilter className='h-3.5 w-3.5' />
-                  <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Filter</span>
-                </Button>
-              </DropdownMenuTrigger>
-            </DropdownMenu>
-            <Button size='sm' variant='outline' className='h-7 gap-1'>
-              <File className='h-3.5 w-3.5' />
-              <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Export</span>
-            </Button>
-            <Button size='sm' className='h-7 gap-1'>
-              <PlusCircle className='h-3.5 w-3.5' />
-              <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Add Product</span>
-            </Button>
+    <div className='rounded-sm bg-white px-2 md:px-7 pb-10 md:pb-20 shadow'>
+      <div className='border-b border-gray-200 pb-20 py-6'>
+        <h1 className='text-lg font-medium capitalize text-gray-900'>Hồ Sơ Của Tôi</h1>
+        <div className='mt-1 text-sm text-gray-700'>Quan Ly Thong Tin Ho So De Bao Mat Tao Khoan</div>
+      </div>
+      <form className='mt-8 flex flex-col-reverse md:flex-row md:items-start'>
+        <div className='mt-6 flex-grow md:pr-12 md:mt-0'>
+          <div className='flex flex-col sm:flex-row flex-wrap'>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>Email</div>
+            <div className='w-[80%] pl-5'>
+              <div className='pt-3 text-gray-700'>Lorem ipsum dolor sit</div>
+            </div>
+          </div>
+          <div className='mt-6 flex flex-wrap flex-col sm:flex-row'>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>Tên</div>
+            <div className='w-[80%] pl-5'>
+              <Input
+                classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
+                // register={register}
+                name='name'
+                placeholder='Tên'
+                // errorMessage={errors.name?.message}
+              />
+            </div>
+          </div>
+          <div className='mt-2 flex flex-wrap flex-col sm:flex-row'>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>Số Điện Thoại</div>
+            <div className='w-[80%] pl-5'>
+              <Controller
+                control={control}
+                name='phone'
+                render={({ field }) => {
+                  return (
+                    <InputNumber
+                      type='number'
+                      classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
+                      placeholder='Số điện thoại'
+                      errorMessage={errors.phone?.message}
+                      {...field}
+                      onChange={field.onChange}
+                    />
+                  )
+                }}
+              />
+            </div>
+          </div>
+          <div className='mt-2 flex flex-wrap flex-col sm:flex-row'>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>Dia chi</div>
+            <div className='w-[80%] pl-5'>
+              <Input
+                classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
+                register={register}
+                name='address'
+                placeholder='Địa chỉ'
+                errorMessage={errors.name?.message}
+              />
+            </div>
+          </div>
+          <Controller
+            control={control}
+            name='date_of_birth'
+            render={({ field }) => (
+              <DateSelect errorMessage={errors.date_of_birth?.message} value={field.value} onChange={field.onChange} />
+            )}
+          />
+          <div className='mt-4 flex flex-wrap flex-col sm:flex-row'>
+            <div className='w-[20%] truncate pt-3 text-right capitalize' />
+            <div className='w-[80%] pl-5'>
+              <Button>Save</Button>
+            </div>
           </div>
         </div>
-        <TabsContent value='all'>
-          <Card x-chunk='dashboard-06-chunk-0'>
-            <CardHeader>
-              <CardTitle>Products</CardTitle>
-              <CardDescription>Manage your products and view their sales performance.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className='hidden w-[100px] sm:table-cell'>
-                      <span className='sr-only'>Image</span>
-                    </TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead className='hidden md:table-cell'>Total Sales</TableHead>
-                    <TableHead className='hidden md:table-cell'>Created at</TableHead>
-                    <TableHead>
-                      <span className='sr-only'>Actions</span>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className='hidden sm:table-cell'>
-                      <img
-                        src='https://github.com/shadcn.png'
-                        alt='ProductImage'
-                        className='aspect-square rounded-md object-cover'
-                        height='64'
-                        width='64'
-                      />
-                    </TableCell>
-                    <TableCell className='font-medium'>Laser Lemonade Machine</TableCell>
-                    <TableCell>
-                      <Badge variant='outline'>Draft</Badge>
-                    </TableCell>
-                    <TableCell>$499.99</TableCell>
-                    <TableCell className='hidden md:table-cell'>25</TableCell>
-                    <TableCell className='hidden md:table-cell'>2023-07-12 10:42 AM</TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button aria-haspopup='true' size='icon' variant='ghost'>
-                            <MoreHorizontal className='h-4 w-4' />
-                            <span className='sr-only'>Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align='end'>
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-            <CardFooter>
-              <div className='text-xs text-muted-foreground'>
-                Showing <strong>1-10</strong> of <strong>32</strong> products
-              </div>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-      </Tabs>
+        <div className='flex justify-center md:w-72 md:border-l md:border-l-gray-300'>
+          <div className='flex flex-col items-center'>
+            <div className='my-5 h-24 w-24'>
+              <Avatar>
+                <AvatarImage src='https://github.com/shadcn.png' />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+            <InputFile />
+            <div className='mt-3 text-gray-600'>
+              <div>Dung luong toi da 1MB</div>
+              <div>Dinh dang: .JPEG, .PNG</div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   )
 }
