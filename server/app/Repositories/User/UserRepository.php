@@ -34,4 +34,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model->where('id', '=', $id)->with('role')->first();
     }
+
+    public function deleteUser($role_id)
+    {
+        $users = $this->model->where('role_id', $role_id)->first();
+
+        return $this->destroy($users);
+    }
 }

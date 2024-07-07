@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //Role admin
+        $user = new Role();
+        $user->name = 'admin';
+        $user->save();
+
+         //Role user
+        $user = new Role();
+        $user->name = 'user';
+        $user->save();
+
+        //User
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@gmail.com';

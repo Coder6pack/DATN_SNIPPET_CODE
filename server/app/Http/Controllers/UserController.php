@@ -37,7 +37,6 @@ class UserController extends Controller
                 'password' => 'required|string|min:8',
                 'job' => 'required|string',
                 'state' => 'required',
-                'google_id' => 'required',
                 'role_id' => 'required',
                 'profile' => 'required',
                 'lastLogin' => 'required',
@@ -72,7 +71,6 @@ class UserController extends Controller
                 'password' => 'required|string|min:8',
                 'job' => 'required|string',
                 'state' => 'required',
-                'google_id' => 'required',
                 'role_id' => 'required',
                 'profile' => 'required',
                 'lastLogin' => 'required',
@@ -92,6 +90,30 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => "Chỉnh sửa thất bại",
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        try {
+
+            $users = $this->userRepository->deleteUser($request -> rold_id);
+
+            return response()->json([
+                'data' => $users,
+                'message' => "Xóa thành công",
+            ], 201);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'message' => "Xóa thất bại",
+                'errors' => $e->errors(),
+            ], 422);
+        }catch (\Exception $e) {
+            return response()->json([
+                'message' => "Xóa thất bại",
                 'error' => $e->getMessage(),
             ], 500);
         }

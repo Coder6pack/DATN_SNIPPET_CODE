@@ -54,6 +54,34 @@ class VoteController extends Controller
         }
     }
 
+    public function edit(Request $request, $id)
+    {
+        try {
+            $validatedData = $request->validate([
+                'snippet_id' => 'required',
+                'user_id' => 'required',
+                'vote_type' => 'required',
+            ]);
+
+            $snippets = $this->voteRepository->update($id, $validatedData);
+
+            return response()->json([
+                'data' => $snippets,
+                'message' => "Chỉnh sửa thành công",
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'message' => "Chỉnh sửa thất bại",
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => "Chỉnh sửa thất bại",
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function destroy(Request $request)
     {
         try {
