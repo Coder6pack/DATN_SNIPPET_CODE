@@ -41,4 +41,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $this->destroy($users);
     }
+
+    public function checkRole($role_id)
+    {
+        return $this->model->wheres('role_id', $role_id = 2);
+    }
 }

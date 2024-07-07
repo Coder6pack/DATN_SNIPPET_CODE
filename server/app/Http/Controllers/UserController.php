@@ -19,9 +19,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function detail($id)
+    public function detail()
     {
-        $users = $this->userRepository->getTypeId($id);
+        $users = $this->userRepository->getTypeId(auth()->user()->id);
         return response()->json([
             'data' => $users,
         ]);
@@ -61,7 +61,7 @@ class UserController extends Controller
         }
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
         try {
             $validatedData = $request->validate([
@@ -76,7 +76,7 @@ class UserController extends Controller
                 'lastLogin' => 'required',
             ]);
 
-            $users = $this->userRepository->update($id, $validatedData);
+            $users = $this->userRepository->update(auth()->user()->id, $validatedData);
 
             return response()->json([
                 'data' => $users,

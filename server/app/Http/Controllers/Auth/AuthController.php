@@ -2,34 +2,35 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function login(Request $request)
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
+        $credentials = $request->only('email', 'password', 'role_id');
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login()
-    {
-        $credentials = request(['email', 'password', 'role_id']);
+        $user = User::where('email', $credentials['email'])
+            ->where('role_id', $credentials['role_id'])
+            ->first();
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đăng nhập thất bại'
+            ], 401);
         }
-        
+
+        if (! $token = auth()->login($user)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đăng nhập thất bại'
+            ], 401);
+        }
+
         return response()->json([
             'data' => auth()->user(),
             'access_token' => $token,
@@ -60,3 +61,4 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 }
+
