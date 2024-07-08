@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ImgController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SnippetController;
@@ -28,7 +29,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/error', function () {
     return response()->json([
         'status' => false,
-        'message' => 'Không có quyền truy cập vào admin',
+        'message' => 'Sai token',
     ]);
 })->name('auth.error');
 
@@ -82,12 +83,20 @@ Route::middleware(['auth:api', 'user'])->group(function () {
         Route::put('/edit/me', [UserController::class, 'edit']);
         Route::delete('/delete', [UserController::class, 'destroy']);
         //Snippet
-        Route::get('/snippet', [SnippetController::class, 'index']);
-        Route::get('/snippet/{id}', [SnippetController::class, 'detail']);
         Route::post('/snippet/store', [SnippetController::class, 'store']);
         Route::put('/snippet/edit/{id}', [SnippetController::class, 'edit']);
         Route::delete('/snippet/delete', [SnippetController::class, 'destroy']);
 
+        // Img routes
+        Route::get('/img', [ImgController::class, 'index']);
+        Route::post('/img/store', [ImgController::class, 'store']);
+        Route::put('/img/edit/{id}', [ImgController::class, 'edit']);
+        Route::delete('/img/delete', [ImgController::class, 'destroy']);
+
         Route::post('/logout', [AuthController::class, 'logout']);
     });
 });
+
+//Snippet
+Route::get('/snippet', [SnippetController::class, 'index']);
+Route::get('/snippet/{id}', [SnippetController::class, 'detail']);

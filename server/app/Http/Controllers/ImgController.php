@@ -2,28 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Img\ImgRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Repositories\User\UserRepositoryInterface;
 
-class UserController extends Controller
+class ImgController extends Controller
 {
     public function __construct(
-        protected UserRepositoryInterface $userRepository,
-    ) {
-    }
+        protected ImgRepositoryInterface $imgRepository,
+    ) {}
     public function index()
     {
-        $users = $this->userRepository->getForeign();
+        $imgs = $this->imgRepository->getForeign();
         return response()->json([
-            'data' => $users,
-        ]);
-    }
-
-    public function detail()
-    {
-        $users = $this->userRepository->getTypeId(auth()->user()->id);
-        return response()->json([
-            'data' => $users,
+            'data' =>  $imgs,
         ]);
     }
 
@@ -31,22 +22,13 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'phone' => 'required',
-                'password' => 'required|string|min:8',
-                'job' => 'required|string',
-                'state' => 'required',
-                'role_id' => 'required',
-                'img_id' => 'required',
-                'profile' => 'required',
-                'lastLogin' => 'required',
+                'img' => 'required',
             ]);
 
-            $user = $this->userRepository->create($validatedData);
+            $imgs = $this->imgRepository->create($validatedData);
 
             return response()->json([
-                'data' => $user,
+                'data' => $imgs,
                 'message' => "Thêm mới thành công",
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -62,26 +44,17 @@ class UserController extends Controller
         }
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email',
-                'phone' => 'required',
-                'password' => 'required|string|min:8',
-                'job' => 'required|string',
-                'state' => 'required',
-                'role_id' => 'required',
-                'img_id' => 'required',
-                'profile' => 'required',
-                'lastLogin' => 'required',
+                'img' => 'required',
             ]);
 
-            $users = $this->userRepository->update(auth()->user()->id, $validatedData);
+            $imgs = $this->imgRepository->update($id, $validatedData);
 
             return response()->json([
-                'data' => $users,
+                'data' => $imgs,
                 'message' => "Chỉnh sửa thành công",
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -101,10 +74,10 @@ class UserController extends Controller
     {
         try {
 
-            $users = $this->userRepository->deleteUser($request -> rold_id, $request-> img_id);
+            $imgs = $this->imgRepository->deleteImg($request->id);
 
             return response()->json([
-                'data' => $users,
+                'data' => $imgs,
                 'message' => "Xóa thành công",
             ], 201);
 

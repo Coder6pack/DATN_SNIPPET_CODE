@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Img\ImgRepository;
+use App\Repositories\Img\ImgRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Snippet\SnippetRepository;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->singleton(SnippetTagRepositoryInterface::class, SnippetTagRepository::class);
         $this->app->singleton(HistoryStateRepositoryInterface::class, HistoryStateRepository::class);
+        $this->app->singleton(ImgRepositoryInterface::class, ImgRepository::class);
     }
 
     /**

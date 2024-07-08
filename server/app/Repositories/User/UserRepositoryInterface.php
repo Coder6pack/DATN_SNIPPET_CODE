@@ -3,7 +3,6 @@
 namespace App\Repositories\User;
 
 use App\Repositories\RepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface UserRepositoryInterface extends RepositoryInterface
 {
@@ -11,5 +10,5 @@ interface UserRepositoryInterface extends RepositoryInterface
 
     public function getTypeId($id);
 
-    public function deleteUser($role_id);
+    public function deleteUser($role_id, $img_id);
 }

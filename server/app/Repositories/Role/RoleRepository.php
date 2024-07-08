@@ -6,11 +6,10 @@ use App\Models\Role;
 use App\Repositories\BaseRepository;
 use App\Repositories\Role\RoleRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 {
-    const PER_PAGE = 10;
-
     /**
      * {@inheritdoc}
      */

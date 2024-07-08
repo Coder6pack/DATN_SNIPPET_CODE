@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\Snippet;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
@@ -28,13 +29,22 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'phone' => '0866924229',
             'password'=> Hash::make('12345@Aa'),
-            'job' => 1,
-            'state' => 1,
             'role_id' => 1,
-            'profile' => 'Admin',
-            'lastLogin' => 1,
         ]);
+        $user = User::create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password'=> Hash::make('12345@Qq'),
+            'role_id' => 2,
+        ]);
+        foreach ([1,2,3,4,5,6,7,8,9,10]as $item) {
+            Snippet::create([
+                'user_id' => $user->id,
+                'title' => 'Tl'.$item,
+                'content' => 'abc'.$item,
+            ]);
+        }
+
     }
 }

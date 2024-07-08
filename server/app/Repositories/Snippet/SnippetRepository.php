@@ -6,11 +6,10 @@ use App\Models\Snippet;
 use App\Repositories\BaseRepository;
 use App\Repositories\Snippet\SnippetRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class SnippetRepository extends BaseRepository implements SnippetRepositoryInterface
 {
-    const PER_PAGE = 10;
-
     /**
      * {@inheritdoc}
      */
@@ -25,19 +24,19 @@ class SnippetRepository extends BaseRepository implements SnippetRepositoryInter
         parent::__construct($model);
     }
 
-    public function getForeign()
+    public function getForeign($page = 1, $per_page = 5)
     {
-        return $this->model->with('user', 'img')->get();
+        return $this->model->with('user')->take($per_page)->skip($per_page * ($page - 1))->get();
     }
 
     public function getTypeId($id)
     {
-        return $this->model->where('id', '=', $id)->with('user', 'img')->first();
+        return $this->model->where('id', '=', $id)->with('user')->first();
     }
 
-    public function deleteSnippet($user_id, $img_id)
+    public function deleteSnippet($user_id)
     {
-        $snippets = $this->model->where('user_id', $user_id)->where('img_id', $img_id)->first();
+        $snippets = $this->model->where('user_id', $user_id)->first();
 
         return $this->destroy($snippets);
     }

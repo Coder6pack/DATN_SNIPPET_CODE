@@ -9,9 +9,9 @@ class SnippetController extends Controller
     public function __construct(
         protected SnippetRepositoryInterface $snippetRepository,
     ) {}
-    public function index()
+    public function index(Request $request)
     {
-        $snippets = $this->snippetRepository->getForeign();
+        $snippets = $this->snippetRepository->getForeign($request->page);
         return response()->json([
             'data' =>  $snippets,
         ]);
@@ -30,7 +30,6 @@ class SnippetController extends Controller
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required',
-                'img_id' => 'required',
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:1024',
             ]);
@@ -59,7 +58,6 @@ class SnippetController extends Controller
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required',
-                'img_id' => 'required',
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:1024',
             ]);

@@ -3,7 +3,6 @@
 namespace App\Repositories\Snippet;
 
 use App\Repositories\RepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface SnippetRepositoryInterface extends RepositoryInterface
 {
@@ -11,5 +10,5 @@ interface SnippetRepositoryInterface extends RepositoryInterface
 
     public function getTypeId($id);
 
-    public function deleteSnippet($user_id, $img_id);
+    public function deleteSnippet($user_id);
 }

@@ -14,7 +14,6 @@ class Snippet extends Model
 
     protected $fillable = [
         'user_id',
-        'img_id',
         'title',
         'content',
     ];
@@ -28,7 +27,7 @@ class Snippet extends Model
     }
 
     /**
-     * 
+     *
      * @return BelongsTo
      */
     public function user(): BelongsTo
@@ -36,17 +35,8 @@ class Snippet extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * 
-     * @return BelongsTo
-     */
-    public function img(): BelongsTo
-    {
-        return $this->belongsTo(Img::class);
-    }
-
      /**
-     * 
+     *
      * @return BelongsTo
      */
     public function snippet_tag(): BelongsTo
