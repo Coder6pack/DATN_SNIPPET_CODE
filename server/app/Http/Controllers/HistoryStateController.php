@@ -22,7 +22,8 @@ class HistoryStateController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required',
+                'user_id' => 'required',
+                'lastTime' => 'required',
             ]);
 
             $historyStates = $this->historyStateRepository->update($id, $validatedData);

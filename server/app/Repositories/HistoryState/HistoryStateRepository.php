@@ -5,12 +5,9 @@ namespace App\Repositories\HistoryState;
 use App\Models\HistoryState;
 use App\Repositories\BaseRepository;
 use App\Repositories\HistoryState\HistoryStateRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class HistoryStateRepository extends BaseRepository implements HistoryStateRepositoryInterface
 {
-    const PER_PAGE = 10;
-
     /**
      * {@inheritdoc}
      */

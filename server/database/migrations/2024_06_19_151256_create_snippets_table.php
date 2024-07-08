@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('snippets', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignUlid('user_id')->foreignId('users');
-            $table->foreignUlid('img_id')->foreignId('imgs');
             $table->string('title');
             $table->string('content');
             $table->timestamps();

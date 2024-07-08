@@ -6,6 +6,7 @@ use App\Models\SnippetTag;
 use App\Repositories\BaseRepository;
 use App\Repositories\SnippetTag\SnippetTagRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class SnippetTagRepository extends BaseRepository implements SnippetTagRepositoryInterface
 {
@@ -27,7 +28,8 @@ class SnippetTagRepository extends BaseRepository implements SnippetTagRepositor
 
     public function getForeign()
     {
-        return $this->model->with('snippet')->get();
+        return  $this->model->with('snippet')->get();
+
     }
 
     public function getTypeId($id)

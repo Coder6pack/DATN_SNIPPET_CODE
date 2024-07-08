@@ -6,6 +6,7 @@ use App\Models\Vote;
 use App\Repositories\BaseRepository;
 use App\Repositories\Vote\VoteRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class VoteRepository extends BaseRepository implements VoteRepositoryInterface
 {

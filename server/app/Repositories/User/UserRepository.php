@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -27,7 +28,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getForeign()
     {
-        return $this->model->with('role')->get();
+        return  $this->model->with('role', 'img')->get();
     }
 
     public function getTypeId($id)
@@ -35,15 +36,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->where('id', '=', $id)->with('role')->first();
     }
 
-    public function deleteUser($role_id)
+    public function deleteUser($role_id, $img_id)
     {
-        $users = $this->model->where('role_id', $role_id)->first();
+        $users = $this->model->where('role_id', $role_id)->where('img_id', $img_id)->first();
 
         return $this->destroy($users);
-    }
-
-    public function checkRole($role_id)
-    {
-        return $this->model->wheres('role_id', $role_id = 2);
     }
 }

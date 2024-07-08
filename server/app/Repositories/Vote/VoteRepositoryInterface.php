@@ -3,7 +3,6 @@
 namespace App\Repositories\Vote;
 
 use App\Repositories\RepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface VoteRepositoryInterface extends RepositoryInterface
 {

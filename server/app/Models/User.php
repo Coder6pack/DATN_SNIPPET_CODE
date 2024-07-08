@@ -26,8 +26,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'job',
         'state',
-        'google_id',
         'role_id',
+        'img_id',
         'profile',
         'lastLogin',
     ];
@@ -51,7 +51,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * 
+     *
      * @return BelongsTo
      */
     public function history_state(): BelongsTo
@@ -60,7 +60,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * 
+     *
      * @return BelongsTo
      */
     public function role(): BelongsTo
@@ -69,7 +69,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * 
+     *
      * @return BelongsTo
      */
     public function gooles(): BelongsTo
@@ -83,6 +83,15 @@ class User extends Authenticatable implements JWTSubject
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     *
+     * @return BelongsTo
+     */
+    public function img(): BelongsTo
+    {
+        return $this->belongsTo(Img::class);
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Repositories\Role;
 
 use App\Repositories\RepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface RoleRepositoryInterface extends RepositoryInterface
 {

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -30,12 +29,14 @@ class AuthController extends Controller
                 'message' => 'Đăng nhập thất bại'
             ], 401);
         }
-
         return response()->json([
-            'data' => auth()->user(),
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'message' => 'Đăng nhập thành công',
+            'data' => [
+                'user' => auth()->user(),
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires' => auth()->factory()->getTTL() * 60
+            ],
         ]);
     }
 
