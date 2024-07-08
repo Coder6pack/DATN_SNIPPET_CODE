@@ -1,0 +1,38 @@
+/* CustomMarkdown.css */
+
+.markdown-body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #000;
+  /* Màu văn bản mặc định */
+  background-color: #fff;
+  /* Nền trắng */
+  padding: 20px;
+  /* Thêm khoảng cách */
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body p,
+.markdown-body a,
+.markdown-body code {
+  color: #000;
+  /* Màu văn bản cho tiêu đề, đoạn, liên kết và code */
+}
+
+.markdown-body code {
+  background-color: #f6f8fa;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  color: #d6336c;
+  /* Màu văn bản cho code */
+}
+
+.markdown-body pre {
+  position: relative;
+  background-color: #f6f8fa;
+  /* Nền cho đoạn mã */
+  border-radius: 3px;
+  padding: 10px;
+  overflow: auto;
+}
