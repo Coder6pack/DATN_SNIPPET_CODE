@@ -8,8 +8,7 @@ import Comment from '../Comment'
 const markdown = `
 # Code Example
 const a = 1;
-#
-console.log('hello word',a)
+console.log('hello )
 `
 export default function SnippetContent() {
   return (
