@@ -5,13 +5,14 @@ import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } fro
 import { AuthResponse } from '@/types/auth.type'
 import path from '@/constants/path'
 import HttpStatusCode from '@/constants/HttpStatusCode.enum'
+
 class Http {
   instance: AxiosInstance
   private access_token: string
   constructor() {
     this.access_token = getAccessTokenFromLS()
     ;(this.instance = axios.create({
-      baseURL: 'https://localhost:8000/api/',
+      baseURL: 'http://localhost:8000/api/',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'
@@ -64,5 +65,4 @@ class Http {
 }
 
 const http = new Http().instance
-
 export default http

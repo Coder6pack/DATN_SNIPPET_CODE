@@ -31,16 +31,8 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'phone' => 'required',
                 'password' => 'required|string|min:8',
-                'job' => 'required|string',
-                'state' => 'required',
-                'role_id' => 'required',
-                'img_id' => 'required',
-                'profile' => 'required',
-                'lastLogin' => 'required',
             ]);
 
             $user = $this->userRepository->create($validatedData);

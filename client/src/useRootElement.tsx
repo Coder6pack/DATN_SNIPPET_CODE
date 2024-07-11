@@ -13,10 +13,19 @@ import ManagerSnippet from './pages/User/ManagerSnippet'
 import Users from './pages/User/List/Users'
 import Snippets from './pages/User/List/Snippets'
 import Tags from './pages/User/List/Tags'
+import { useContext } from 'react'
+import { AppContext } from './contexts/app.context'
+import NotFound from './pages/NotFound'
 
 function ProtectedRoutes() {
-  const isAuthenticated = true
-  return isAuthenticated ? <Outlet /> : <Navigate to='/' />
+  const { isAuthenticated } = useContext(AppContext)
+  console.log('ProtectedRoutes : ' + isAuthenticated)
+  return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
+}
+
+function RejectedRoute() {
+  const { isAuthenticated } = useContext(AppContext)
+  return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
 }
 export default function useRootElement() {
   const rootElements = useRoutes([
@@ -34,14 +43,6 @@ export default function useRootElement() {
       element: <ProtectedRoutes />,
       children: [
         {
-          path: path.register,
-          element: (
-            <RegisterLayout>
-              <Register />
-            </RegisterLayout>
-          )
-        },
-        {
           path: path.writeSnippet,
           element: (
             <MainLayout>
@@ -55,14 +56,6 @@ export default function useRootElement() {
             <MainLayout>
               <SnippetDetail />
             </MainLayout>
-          )
-        },
-        {
-          path: path.login,
-          element: (
-            <RegisterLayout>
-              <Login />
-            </RegisterLayout>
           )
         },
         {
@@ -98,6 +91,36 @@ export default function useRootElement() {
           ]
         }
       ]
+    },
+    {
+      path: '',
+      element: <RejectedRoute />,
+      children: [
+        {
+          path: path.login,
+          element: (
+            <RegisterLayout>
+              <Login />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.register,
+          element: (
+            <RegisterLayout>
+              <Register />
+            </RegisterLayout>
+          )
+        }
+      ]
+    },
+    {
+      path: '*',
+      element: (
+        <MainLayout>
+          <NotFound />
+        </MainLayout>
+      )
     }
   ])
   return rootElements

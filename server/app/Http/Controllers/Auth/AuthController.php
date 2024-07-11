@@ -10,10 +10,9 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password', 'role_id');
+        $credentials = $request->only('email', 'password');
 
         $user = User::where('email', $credentials['email'])
-            ->where('role_id', $credentials['role_id'])
             ->first();
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
@@ -35,7 +34,7 @@ class AuthController extends Controller
                 'user' => auth()->user(),
                 'access_token' => $token,
                 'token_type' => 'bearer',
-                'expires' => auth()->factory()->getTTL() * 60
+                'expires' => auth()->factory()->getTTL() * 600
             ],
         ]);
     }
@@ -57,7 +56,6 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }

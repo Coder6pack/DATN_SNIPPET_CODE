@@ -294,7 +294,6 @@ return [
         | Specify the provider that is used to store tokens in the blacklist.
         |
         */
-
-        'storage' => PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate::class,
+'storage' => PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate::class,
     ],
 ];

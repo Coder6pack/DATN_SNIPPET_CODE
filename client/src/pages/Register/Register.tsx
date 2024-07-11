@@ -70,7 +70,7 @@ export default function Register() {
   })
   return (
     <div className='mt-12'>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} noValidate>
         <Card className='mx-auto max-w-sm shadow shadow-md'>
           <CardHeader>
             <CardTitle className='text-2xl text-center'>Sign Up</CardTitle>
