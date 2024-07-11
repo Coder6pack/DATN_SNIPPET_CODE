@@ -69,15 +69,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     *
-     * @return BelongsTo
-     */
-    public function gooles(): BelongsTo
-    {
-        return $this->belongsTo(Google  ::class);
-    }
-
-    /**
      * @return HasMany
      */
     public function comments(): HasMany
