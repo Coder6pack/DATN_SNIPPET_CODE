@@ -7,7 +7,7 @@ export interface User {
   job?: string
   state: string
   role_id: string
-  date_of_birth?: string // ISO 8601
+  // date_of_birth?: string // ISO 8601
   img_id?: string
   profile?: string
   createdAt: string
