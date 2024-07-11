@@ -12,8 +12,23 @@ import { AiFillAppstore } from 'react-icons/ai'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import SearchInput from '../SearchInput'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useContext } from 'react'
+import { AppContext } from '@/contexts/app.context'
+import { useMutation } from '@tanstack/react-query'
+import authApi from '@/apis/auth.api'
 
 export default function Header() {
+  const { isAuthenticated, setIsAuthenticated, setProfile } = useContext(AppContext)
+  const logoutMutation = useMutation({
+    mutationFn: authApi.logout,
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      setProfile(null)
+    }
+  })
+  const handleLogout = () => {
+    logoutMutation.mutate()
+  }
   return (
     <div className='shadow-md'>
       <div className='max-w-6xl mx-auto'>
@@ -104,34 +119,40 @@ export default function Header() {
               </Link>
               <ModeToggle />
             </div>
-            <Button variant='outline'>
-              <Link to={path.login}>Sign in</Link>
-            </Button>
-            <Button>
-              <Link to={path.register}>Sign Up</Link>
-            </Button>
-            <Popover>
-              <PopoverTrigger>
-                <Avatar>
-                  <AvatarImage src='https://github.com/shadcn.png' />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </PopoverTrigger>
-              <PopoverContent className='w-44'>
-                <Link to={path.profile}>
-                  <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Profile</div>
-                </Link>
-                <Link to={path.managerSnippet}>
-                  <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Manager</div>
-                </Link>
-                <Link to={path.dashboardUser}>
-                  <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Dashboard</div>
-                </Link>
-                <Link to={path.login}>
-                  <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Logout</div>
-                </Link>
-              </PopoverContent>
-            </Popover>
+            {isAuthenticated && (
+              <Popover>
+                <PopoverTrigger>
+                  <Avatar>
+                    <AvatarImage src='https://github.com/shadcn.png' />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </PopoverTrigger>
+                <PopoverContent className='w-44'>
+                  <Link to={path.profile}>
+                    <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Profile</div>
+                  </Link>
+                  <Link to={path.managerSnippet}>
+                    <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Manager</div>
+                  </Link>
+                  <Link to={path.dashboardUser}>
+                    <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Dashboard</div>
+                  </Link>
+                  <Button onClick={handleLogout}>
+                    <div className='p-2 rounded-md'>Logout</div>
+                  </Button>
+                </PopoverContent>
+              </Popover>
+            )}
+            {!isAuthenticated && (
+              <div className='flex gap-1'>
+                <Button variant='outline'>
+                  <Link to={path.login}>Sign in</Link>
+                </Button>
+                <Button>
+                  <Link to={path.register}>Sign Up</Link>
+                </Button>
+              </div>
+            )}
           </div>
         </header>
       </div>

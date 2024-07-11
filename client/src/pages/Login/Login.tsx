@@ -40,7 +40,6 @@ export default function Login() {
 
   // Goi useContext cua Authenticated
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
-
   // Khai bao navigate
   const navigate = useNavigate()
 

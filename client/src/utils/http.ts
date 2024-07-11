@@ -5,6 +5,7 @@ import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } fro
 import { AuthResponse } from '@/types/auth.type'
 import path from '@/constants/path'
 import HttpStatusCode from '@/constants/HttpStatusCode.enum'
+
 class Http {
   instance: AxiosInstance
   private access_token: string
@@ -64,5 +65,4 @@ class Http {
 }
 
 const http = new Http().instance
-
 export default http
