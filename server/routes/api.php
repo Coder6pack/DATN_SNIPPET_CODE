@@ -39,42 +39,42 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/user', [UserController::class, 'index']);
         Route::get('/user/{id}', [UserController::class, 'detail']);
-        Route::post('/user/store', [UserController::class, 'store']);
         Route::put('/user/edit/{id}', [UserController::class, 'edit']);
         Route::delete('/user/delete', [UserController::class, 'destroy']);
-    // Role routes
+        // Role routes
         Route::get('/role', [RoleController::class, 'index']);
         Route::get('/role/{id}', [RoleController::class, 'detail']);
         Route::post('/role/store', [RoleController::class, 'store']);
         Route::put('/role/edit/{id}', [RoleController::class, 'edit']);
         Route::delete('/role/delete', [RoleController::class, 'destroy']);
-    // Snippet routes
+        // Snippet routes
         Route::get('/snippet', [SnippetController::class, 'index']);
         Route::get('/snippet/{id}', [SnippetController::class, 'detail']);
         Route::post('/snippet/store', [SnippetController::class, 'store']);
         Route::put('/snippet/edit/{id}', [SnippetController::class, 'edit']);
         Route::delete('/snippet/delete', [SnippetController::class, 'destroy']);
-    // SnippetTag routes
+        // SnippetTag routes
         Route::get('/snippetTag', [SnippetTagController::class, 'index']);
         Route::get('/snippetTag/{id}', [SnippetTagController::class, 'detail']);
         Route::post('/snippetTag/store', [SnippetTagController::class, 'store']);
         Route::put('/snippetTag/edit/{id}', [SnippetTagController::class, 'edit']);
         Route::delete('/snippetTag/delete', [SnippetTagController::class, 'destroy']);
-    // Vote routes
+        // Vote routes
         Route::get('/vote', [VoteController::class, 'index']);
         Route::get('/vote/{id}', [VoteController::class, 'detail']);
         Route::post('/vote/store', [VoteController::class, 'store']);
         Route::put('/vote/edit/{id}', [VoteController::class, 'edit']);
         Route::delete('/vote/delete', [VoteController::class, 'destroy']);
 
-    // HistoryState routes
+        // HistoryState routes
         Route::get('/historyState', [HistoryStateController::class, 'index']);
         Route::post('/historyState/edit/{id}', [HistoryStateController::class, 'edit']);
         Route::delete('/historyState/delete', [HistoryStateController::class, 'destroy']);
 
-        Route::post('/logout', [AuthController::class, 'logout']);
     });
 });
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/register', [UserController::class, 'store']);
 
 // USER routes
 Route::middleware(['auth:api', 'user'])->group(function () {
@@ -93,7 +93,6 @@ Route::middleware(['auth:api', 'user'])->group(function () {
         Route::put('/img/edit/{id}', [ImgController::class, 'edit']);
         Route::delete('/img/delete', [ImgController::class, 'destroy']);
 
-        Route::post('/logout', [AuthController::class, 'logout']);
     });
 });
 

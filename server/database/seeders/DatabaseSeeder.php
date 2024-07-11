@@ -33,5 +33,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1,
         ]);
 
+
+
     }
 }
