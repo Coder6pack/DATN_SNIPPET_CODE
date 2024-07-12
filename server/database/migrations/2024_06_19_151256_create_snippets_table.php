@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('snippets', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignUlid('user_id')->foreignId('users');
+            $table->foreignUlid('snippet_tag_id')->foreignId('snippet_tags');
             $table->string('title');
             $table->string('content');
             $table->timestamps();

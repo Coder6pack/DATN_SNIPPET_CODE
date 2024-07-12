@@ -14,6 +14,7 @@ class Snippet extends Model
 
     protected $fillable = [
         'user_id',
+        'snippet_tag_id',
         'title',
         'content',
     ];
@@ -34,4 +35,12 @@ class Snippet extends Model
     {
         return $this->hasMany(Vote::class);
     }
+     /**
+     * @return HasMany
+     */
+    public function snippet_tags(): HasMany
+    {
+        return $this->hasMany(SnippetTag::class);
+    }
+
 }
