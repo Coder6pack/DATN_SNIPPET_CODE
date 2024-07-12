@@ -69,14 +69,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * @return HasMany
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
      *
      * @return BelongsTo
      */

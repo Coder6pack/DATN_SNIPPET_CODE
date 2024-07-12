@@ -19,14 +19,6 @@ class Snippet extends Model
     ];
 
     /**
-     * @return HasMany
-     */
-    public function paginations(): HasMany
-    {
-        return $this->hasMany(Pagination::class);
-    }
-
-    /**
      *
      * @return BelongsTo
      */
@@ -35,24 +27,7 @@ class Snippet extends Model
         return $this->belongsTo(User::class);
     }
 
-     /**
-     *
-     * @return BelongsTo
-     */
-    public function snippet_tag(): BelongsTo
-    {
-        return $this->belongsTo(SnippetTag::class);
-    }
-
-     /**
-     * @return HasMany
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-     /**
+    /**
      * @return HasMany
      */
     public function votes(): HasMany
