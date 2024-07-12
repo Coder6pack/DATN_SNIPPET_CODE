@@ -16,15 +16,33 @@
 // import { ErrorResponse } from 'src/types/ultils.type'
 // import InputFile from 'src/components/InputFile'
 
-import DateSelect from '@/components/DateSelect'
+import userApi from '@/apis/user.api'
 import Input from '@/components/Input'
 import InputFile from '@/components/InputFile'
 import InputNumber from '@/components/InputNumber'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { AppContext } from '@/contexts/app.context'
+import { userSchema, UserSchema } from '@/utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useContext, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
+type FormData = Pick<UserSchema, 'name' | 'phone' | 'job' | 'profile' | 'avatar'>
+
+const profileSchema = userSchema.pick(['name', 'phone', 'job', 'profile', 'avatar'])
+
 export default function Profile() {
+  const { setProfile } = useContext(AppContext)
+  const [file, setFile] = useState<File>()
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
+  const uploadAvatarMutation = useMutation({
+    mutationFn: userApi.uploadAvatar
+  })
   const {
     register,
     control,
@@ -37,12 +55,23 @@ export default function Profile() {
     defaultValues: {
       name: '',
       phone: '',
-      address: '',
-      date_of_birth: new Date(1990, 0, 1),
+      profile: '',
+      job: '',
       avatar: ''
-    }
-    // resolver: yupResolver(profileSchema)
+    },
+    resolver: yupResolver(profileSchema)
   })
+
+  const { data: profileData } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => userApi.getProfile()
+  })
+  const profile = profileData?.data.data
+  console.log(profile)
+  const updateProfileMutation = useMutation({
+    mutationFn: userApi.updateProfile
+  })
+
   return (
     <div className='rounded-sm bg-white px-2 md:px-7 pb-10 md:pb-20 shadow'>
       <div className='border-b border-gray-200 pb-20 py-6'>
@@ -91,7 +120,7 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-2 flex flex-wrap flex-col sm:flex-row'>
-            <div className='w-[20%] truncate pt-3 text-right capitalize'>Dia chi</div>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>Thông tin</div>
             <div className='w-[80%] pl-5'>
               <Input
                 classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
@@ -102,13 +131,19 @@ export default function Profile() {
               />
             </div>
           </div>
-          <Controller
-            control={control}
-            name='date_of_birth'
-            render={({ field }) => (
-              <DateSelect errorMessage={errors.date_of_birth?.message} value={field.value} onChange={field.onChange} />
-            )}
-          />
+          <div className='mt-2 flex flex-wrap flex-col sm:flex-row'>
+            <div className='w-[20%] truncate pt-3 text-right capitalize'>Công việc</div>
+            <div className='w-[80%] pl-5'>
+              <Input
+                classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
+                register={register}
+                name='address'
+                placeholder='Địa chỉ'
+                errorMessage={errors.name?.message}
+              />
+            </div>
+          </div>
+
           <div className='mt-4 flex flex-wrap flex-col sm:flex-row'>
             <div className='w-[20%] truncate pt-3 text-right capitalize' />
             <div className='w-[80%] pl-5'>

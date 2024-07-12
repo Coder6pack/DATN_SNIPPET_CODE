@@ -19,7 +19,6 @@ import NotFound from './pages/NotFound'
 
 function ProtectedRoutes() {
   const { isAuthenticated } = useContext(AppContext)
-  console.log('ProtectedRoutes : ' + isAuthenticated)
   return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
 }
 
@@ -27,6 +26,7 @@ function RejectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
 }
+
 export default function useRootElement() {
   const rootElements = useRoutes([
     {
