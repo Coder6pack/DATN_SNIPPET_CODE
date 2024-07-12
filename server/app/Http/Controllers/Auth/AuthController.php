@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Exception;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -37,6 +40,17 @@ class AuthController extends Controller
                 'expires' => auth()->factory()->getTTL() * 600
             ],
         ]);
+    }
+
+    public function token (Request $request)
+    {
+       try{
+            $token = JWTAuth::parseToken()->getToken();
+            JWTAuth::setToken($token)->checkOrFail();
+            return response()->json(['message' => 'success']);
+       } catch(Exception $e) {
+        return response()->json(['error' => 'Token is invalid'],401);
+       }
     }
 
     /**
