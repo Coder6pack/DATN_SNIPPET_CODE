@@ -14,17 +14,10 @@ class Snippet extends Model
 
     protected $fillable = [
         'user_id',
+        'snippet_tag_id',
         'title',
         'content',
     ];
-
-    /**
-     * @return HasMany
-     */
-    public function paginations(): HasMany
-    {
-        return $this->hasMany(Pagination::class);
-    }
 
     /**
      *
@@ -35,28 +28,19 @@ class Snippet extends Model
         return $this->belongsTo(User::class);
     }
 
-     /**
-     *
-     * @return BelongsTo
-     */
-    public function snippet_tag(): BelongsTo
-    {
-        return $this->belongsTo(SnippetTag::class);
-    }
-
-     /**
-     * @return HasMany
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-     /**
+    /**
      * @return HasMany
      */
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
     }
+     /**
+     * @return HasMany
+     */
+    public function snippet_tags(): HasMany
+    {
+        return $this->hasMany(SnippetTag::class);
+    }
+
 }

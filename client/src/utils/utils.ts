@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-// import userImage from 'src/assets/images/user.svg'
 import HttpStatusCode from '@/constants/HttpStatusCode.enum'
 import axios, { AxiosError } from 'axios'
 
@@ -28,4 +27,9 @@ export const getIdFromNameId = (nameId: string) => {
   return arr[arr.length - 1]
 }
 
-// export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${config.baseUrl}images/${avatarName}` : userImage)
+import config from '@/constants/config'
+
+export const getAvatarUrl = (avatarName?: string) => {
+  console.log(`${config.baseUrl}images/${avatarName}`)
+  return avatarName ? `${config.baseUrl}images/${avatarName}` : 'https://github.com/shadcn.png'
+}

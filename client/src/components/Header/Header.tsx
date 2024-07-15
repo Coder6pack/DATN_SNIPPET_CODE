@@ -128,7 +128,7 @@ export default function Header() {
                   </Avatar>
                 </PopoverTrigger>
                 <PopoverContent className='w-44'>
-                  <Link to={path.profile}>
+                  <Link to={path.me}>
                     <div className='hover:bg-slate-100 p-2 rounded-md hover:text-black'>Profile</div>
                   </Link>
                   <Link to={path.managerSnippet}>

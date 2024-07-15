@@ -40,6 +40,7 @@ class Http {
 
           setAccessTokenToLS(this.access_token)
           setProfileToLS(data.data.user)
+          console.log(data.data.user.email)
         } else if (url === path.logout) {
           this.access_token = ''
           clearLS()

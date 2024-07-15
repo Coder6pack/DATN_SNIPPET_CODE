@@ -30,6 +30,7 @@ class SnippetController extends Controller
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required',
+                'snippet_tag_id' => 'required|array|max:255',
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:1024',
             ]);
@@ -58,6 +59,7 @@ class SnippetController extends Controller
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required',
+                'snippet_tag_id' => 'required|array|max:255',
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:1024',
             ]);

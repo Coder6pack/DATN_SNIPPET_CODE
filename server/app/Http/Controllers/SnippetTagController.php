@@ -30,7 +30,6 @@ class SnippetTagController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'snippet_id' => 'required',
                 'name' => 'required|string|max:255',
             ]);
 
@@ -57,7 +56,6 @@ class SnippetTagController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'snippet_id' => 'required',
                 'name' => 'required|string|max:255',
             ]);
 

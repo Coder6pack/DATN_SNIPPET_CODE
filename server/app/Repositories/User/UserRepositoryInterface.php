@@ -10,5 +10,5 @@ interface UserRepositoryInterface extends RepositoryInterface
 
     public function getTypeId($id);
 
-    public function deleteUser($role_id, $img_id);
+    public function deleteUser($role_id);
 }

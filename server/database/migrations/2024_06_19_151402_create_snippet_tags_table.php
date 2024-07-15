@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('snippet_tags', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignUlid('snippet_id')->foreignId('snippets');
             $table->string('name');
             $table->timestamps();
         });

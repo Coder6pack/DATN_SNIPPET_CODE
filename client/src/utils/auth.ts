@@ -3,6 +3,7 @@ import { User } from 'src/types/user.type'
 export const LocalStorageEventTarget = new EventTarget()
 
 export const setAccessTokenToLS = (access_token: string) => {
+  console.log(access_token)
   localStorage.setItem('access_token', access_token)
 }
 
@@ -17,6 +18,7 @@ export const getAccessTokenFromLS = () => localStorage.getItem('access_token') |
 
 export const getProfileFromLS = () => {
   const result = localStorage.getItem('profile')
+  console.log(result)
   return result ? JSON.parse(result) : null
 }
 

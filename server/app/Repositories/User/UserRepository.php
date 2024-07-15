@@ -7,6 +7,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -28,7 +29,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getForeign()
     {
-        return  $this->model->with('role', 'img')->get();
+        return  $this->model->with('role')->get();
     }
 
     public function getTypeId($id)
@@ -36,10 +37,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->where('id', '=', $id)->with('role')->first();
     }
 
-    public function deleteUser($role_id, $img_id)
+    public function deleteUser($role_id)
     {
-        $users = $this->model->where('role_id', $role_id)->where('img_id', $img_id)->first();
+        $users = $this->model->where('role_id', $role_id)->first();
 
         return $this->destroy($users);
+    }
+
+    public function create($data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+        $data['role_id'] = 2;
+
+        return $this->model->create($data);
     }
 }
