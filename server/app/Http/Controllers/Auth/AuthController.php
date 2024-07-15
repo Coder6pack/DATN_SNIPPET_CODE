@@ -35,8 +35,7 @@ class AuthController extends Controller
             'message' => 'Đăng nhập thành công',
             'data' => [
                 'user' => auth()->user(),
-                'access_token' => $token,
-                'token_type' => 'bearer',
+                'access_token' => 'Bearer '.$token,
                 'expires' => auth()->factory()->getTTL() * 600
             ],
         ]);

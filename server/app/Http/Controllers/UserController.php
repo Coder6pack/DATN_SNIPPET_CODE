@@ -58,16 +58,12 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email',
-                'phone' => 'required',
-                'password' => 'required|string|min:8',
-                'job' => 'required|string',
-                'state' => 'required',
-                'role_id' => 'required',
-                'img_id' => 'required',
-                'profile' => 'required',
-                'lastLogin' => 'required',
+                'name' => 'string|max:255',
+                'phone' => 'string|max:255',
+                'job' => 'string|max:255',
+                'img' => 'string|max:255',
+                'profile' => 'string|max:255',
+                'lastLogin' => 'string|max:255',
             ]);
 
             $users = $this->userRepository->update(auth()->user()->id, $validatedData);
@@ -93,7 +89,7 @@ class UserController extends Controller
     {
         try {
 
-            $users = $this->userRepository->deleteUser($request -> rold_id, $request-> img_id);
+            $users = $this->userRepository->deleteUser($request -> rold_id);
 
             return response()->json([
                 'data' => $users,

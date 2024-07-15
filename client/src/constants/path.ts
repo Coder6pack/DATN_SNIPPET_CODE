@@ -6,7 +6,7 @@ const path = {
   forgotPassword: '/forgot-password',
   writeSnippet: '/write-snippet',
   snippetDetail: '/spippetDetail',
-  profile: '/user/profile',
+  me: '/user/me',
   managerSnippet: '/user/manager-snippet',
   dashboard: '/dashboard',
   dashboardUser: '/dashboard/list-user',

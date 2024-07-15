@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('job')->nullable();
             $table->integer('state')->default(0);
             $table->foreignUlid('role_id')->default(2)->foreignId('roles');
-            $table->foreignUlid('img_id')->nullable()->foreignId('imgs');
+            $table->string('img')->default('avatar_1.jpg');
             $table->string('profile')->nullable();
             $table->integer('lastLogin')->nullable();
             $table->rememberToken();

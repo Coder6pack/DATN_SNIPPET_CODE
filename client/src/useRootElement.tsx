@@ -63,7 +63,7 @@ export default function useRootElement() {
           element: <UserLayout />,
           children: [
             {
-              path: path.profile,
+              path: path.me,
               element: <Profile />
             },
             {

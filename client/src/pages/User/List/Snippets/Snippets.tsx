@@ -8,6 +8,16 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button'
 import { File, ListFilter, PlusCircle } from 'lucide-react'
 import SnippetItem from './SnippetItem'
+const snippetData = [
+  {
+    title: 'Cách tối ưu Interface trong typeScript',
+    tag: 'ReactJS',
+    author: 'Hoài Nhơn',
+    vote: '99',
+    created_at: '2024-07-10 10:42 AM',
+    avatar: 'https://github.com/shadcn.png'
+  }
+]
 export default function Snippets() {
   return (
     <div>
@@ -46,16 +56,17 @@ export default function Snippets() {
                       <span className='sr-only'>Image</span>
                     </TableHead>
                     <TableHead>Title</TableHead>
-                    <TableHead>Author</TableHead>
                     <TableHead>Tag</TableHead>
+                    <TableHead>Author</TableHead>
                     <TableHead className='hidden md:table-cell'>Vote</TableHead>
                     <TableHead className='hidden md:table-cell'>Created at</TableHead>
                     <TableHead className='hidden md:table-cell'>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <SnippetItem />
-                  <SnippetItem />
+                  {snippetData.map((snippet) => {
+                    return <SnippetItem key={snippet.created_at} {...snippet} />
+                  })}
                 </TableBody>
               </Table>
             </CardContent>

@@ -2,7 +2,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
 import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
-// import { AuthResponse } from '@/types/auth.type'
+import { AuthResponse } from '@/types/auth.type'
 import path from '@/constants/path'
 import HttpStatusCode from '@/constants/HttpStatusCode.enum'
 
@@ -35,11 +35,12 @@ class Http {
       (response) => {
         const { url } = response.config
         if (url === path.login || url === path.register) {
-          const data = response.data
-          this.access_token = data.access_token
+          const data = response.data as AuthResponse
+          this.access_token = data.data.access_token
 
           setAccessTokenToLS(this.access_token)
-          setProfileToLS(data.data)
+          setProfileToLS(data.data.user)
+          console.log(data.data.user.email)
         } else if (url === path.logout) {
           this.access_token = ''
           clearLS()

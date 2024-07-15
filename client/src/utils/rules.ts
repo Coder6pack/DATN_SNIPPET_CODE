@@ -91,7 +91,7 @@ export const userSchema = yup.object({
   phone: yup.string().max(20, 'Độ dài tối đa 20 ký tự'),
   job: yup.string().max(160, 'Độ dài tối đa 160 ký tự'),
   profile: yup.string().max(160, 'Độ dài tối đa 160 ký tự'),
-  avatar: yup.string().max(1000, 'Độ dài tối đa 1000 ký tự')
+  img: yup.string().max(1000, 'Độ dài tối đa 1000 ký tự')
   // password: schema.fields['password'] as yup.StringSchema<string | undefined, yup.AnyObject, ''>,
   // new_password: schema.fields['password'] as yup.StringSchema<string | undefined, yup.AnyObject, ''>,
   // confirm_password: handleConfirmPasswordYup('new_password') as yup.StringSchema<
